@@ -5,6 +5,7 @@
     /* text-overflow: ellipsis; */
 }
 .Notes__Note {
+    min-height: 200px;
     font-family: Raleway Regular;
 }
 
