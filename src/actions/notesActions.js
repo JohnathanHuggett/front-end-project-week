@@ -18,6 +18,12 @@ const requestOptions = {
     Authorization: token,
 };
 
+// if above doesn't work, use below
+
+// const requestOptions = {
+//     header: { Authorization: token },
+// };
+
 export const getNotes = userId => dispatch => {
     dispatch({
         type: NOTES_FETCHING,
@@ -27,7 +33,6 @@ export const getNotes = userId => dispatch => {
     axios
         .get(`${URL}/${userId}/notes`, { headers: requestOptions })
         .then(response => {
-            console.log("+++", response);
             dispatch({
                 type: NOTES_FETCHED,
                 notes: response.data.notes,
@@ -61,6 +66,7 @@ export const addNote = (userId, newNote) => dispatch => {
 };
 
 export const deleteNote = (userId, noteId) => dispatch => {
+    console.log("actions", noteId);
     dispatch({ type: NOTES_DELETING });
 
     axios
