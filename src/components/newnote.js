@@ -31,7 +31,7 @@ class NewNote extends React.Component {
     render() {
         return (
             <Col xs="9">
-                {this.state.Redirect ? <Redirect to={"/"} /> : null}
+                {this.state.Redirect ? <Redirect to={"/notes"} /> : null}
                 <Row>
                     <Col>
                         <Form className="mr-4 ml-3" onSubmit={this.handleSubmit}>

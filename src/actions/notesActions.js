@@ -52,10 +52,22 @@ export const addNote = (userId, newNote) => dispatch => {
     axios
         .post(`${URL}/${userId}/notes`, newNote, { headers: requestOptions })
         .then(response => {
-            dispatch({
-                type: NOTES_ADDED,
-                notes: response.data.notes,
-            });
+            axios
+                .get(`${URL}/${userId}/notes`, { headers: requestOptions })
+                .then(response => {
+                    // notes = response.data.notes;
+                    // console.log("notesAction", notes);
+                    dispatch({
+                        type: NOTES_FETCHED,
+                        notes: response.data.notes,
+                    });
+                })
+                .catch(err => {
+                    dispatch({
+                        type: NOTES_ERROR,
+                        errorMessage: `Could not retrieve notes! ${err}.`,
+                    });
+                });
         })
         .catch(err => {
             dispatch({
