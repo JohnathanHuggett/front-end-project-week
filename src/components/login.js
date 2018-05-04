@@ -1,12 +1,12 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { Col, Row, Form, FormGroup, Input } from "reactstrap";
 
 import styled from "styled-components";
 
-import { login } from "../actions";
+import { login, getNotes } from "../actions";
 
 const H3 = styled.h3`
     margin-top: 50px;
@@ -57,11 +57,9 @@ class Login extends React.Component {
                                     placeholder="Password"
                                 />
                             </FormGroup>
-                            {/* <Link to={`/note/`}> */}
                             <Btn className="Button btn btn-primary btn-block" type="submit">
                                 Login
                             </Btn>
-                            {/* </Link> */}
                         </Form>
                     </Col>
                 </Row>
@@ -88,4 +86,4 @@ class Login extends React.Component {
 const mapStateToProps = state => {
     return state;
 };
-export default withRouter(connect(mapStateToProps, { login })(Login));
+export default withRouter(connect(mapStateToProps, { login, getNotes })(Login));

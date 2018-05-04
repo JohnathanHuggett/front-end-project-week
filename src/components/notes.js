@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import DragSortableList from "react-drag-sortable";
 
 import { Row, Col, Card, CardTitle, CardText } from "reactstrap";
 

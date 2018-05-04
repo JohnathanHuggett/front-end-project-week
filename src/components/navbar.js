@@ -29,6 +29,7 @@ const NavBar = props => {
                             Sign Up
                         </Button>
                     </Link>
+
                     <Link className="Link" to="/login">
                         {props.loginPage === true ? null : (
                             <Button onClick={props.loginStatus} className="Button" size="lg" block>
@@ -44,6 +45,7 @@ const NavBar = props => {
                             View Your Notes
                         </Button>
                     </Link>
+
                     <Link className="Link" to="/newnote">
                         <Button className="Button" size="lg" block>
                             + Create Your Notes
