@@ -74,7 +74,7 @@ export const deleteNote = (userId, noteId) => dispatch => {
         .then(response => {
             dispatch({
                 type: NOTES_DELETED,
-                notes: response.data,
+                notes: response.data.notes,
             });
         })
         .catch(err => {

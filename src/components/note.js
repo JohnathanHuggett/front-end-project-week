@@ -80,11 +80,12 @@ class Note extends React.Component {
         const id = this.props.match.params.id;
         const notes = this.props.notes;
         const note = notes.find(note => note._id.toString() === id.toString());
+        console.log("========", note);
         this.setState({ Note: note });
     }
 
     handleDelete = () => {
-        this.props.deleteNote(this.props.user.id, this.state.Note.id);
+        this.props.deleteNote(this.props.user.id, this.state.Note._id);
         this.setState({ DeleteModal: false, Redirect: true });
     };
 
