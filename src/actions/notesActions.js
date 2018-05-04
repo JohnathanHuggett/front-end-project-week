@@ -15,7 +15,7 @@ export const NOTES_FETCHING = "NOTES_FETCHING",
 const token = localStorage.getItem("token");
 
 const requestOptions = {
-    headers: { Authorization: token },
+    Authorization: token,
 };
 
 export const getNotes = userId => dispatch => {
@@ -25,7 +25,7 @@ export const getNotes = userId => dispatch => {
     });
 
     axios
-        .get(`${URL}/${userId}/notes`, requestOptions)
+        .get(`${URL}/${userId}/notes`, { headers: requestOptions })
         .then(response => {
             console.log("+++", response);
             dispatch({
@@ -45,7 +45,7 @@ export const addNote = (userId, newNote) => dispatch => {
     dispatch({ type: NOTES_ADDING });
 
     axios
-        .post(`${URL}/${userId}/notes`, newNote, requestOptions)
+        .post(`${URL}/${userId}/notes`, newNote, { headers: requestOptions })
         .then(response => {
             dispatch({
                 type: NOTES_ADDED,
@@ -64,7 +64,7 @@ export const deleteNote = (userId, noteId) => dispatch => {
     dispatch({ type: NOTES_DELETING });
 
     axios
-        .delete(`${URL}/${userId}/notes/${noteId}`, requestOptions)
+        .delete(`${URL}/${userId}/notes/${noteId}`, { headers: requestOptions })
         .then(response => {
             dispatch({
                 type: NOTES_DELETED,
@@ -83,7 +83,7 @@ export const editNote = (userId, noteId, note) => dispatch => {
     dispatch({ type: NOTES_UPDATING });
 
     axios
-        .put(`${URL}/${userId}/notes/${noteId}`, note, requestOptions)
+        .put(`${URL}/${userId}/notes/${noteId}`, note, { headers: requestOptions })
         .then(response => {
             dispatch({
                 type: NOTES_UPDATED,
