@@ -33,7 +33,7 @@ class EditNote extends React.Component {
     render() {
         return (
             <Col xs="9">
-                {this.state.Redirect ? <Redirect to={"/"} /> : null}
+                {this.state.Redirect ? <Redirect to={"/notes"} /> : null}
                 <Row>
                     <Col>
                         <Form className="mr-4 ml-3" onSubmit={this.handleSubmit}>
@@ -93,9 +93,7 @@ class EditNote extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         const notes = this.props.notes;
-        console.log("notes", this.props);
         const note = notes.find(note => note._id.toString() === id.toString());
-        console.log("the note", note);
         const fields = {
             title: note.title,
             content: note.content,

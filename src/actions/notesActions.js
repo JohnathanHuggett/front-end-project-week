@@ -66,16 +66,31 @@ export const addNote = (userId, newNote) => dispatch => {
 };
 
 export const deleteNote = (userId, noteId) => dispatch => {
-    console.log("actions", noteId);
     dispatch({ type: NOTES_DELETING });
 
     axios
         .delete(`${URL}/${userId}/notes/${noteId}`, { headers: requestOptions })
         .then(response => {
-            dispatch({
-                type: NOTES_DELETED,
-                notes: response.data.notes,
-            });
+            // dispatch({
+            //     type: NOTES_DELETED,
+            //     notes: response.data.notes,
+            // });
+            axios
+                .get(`${URL}/${userId}/notes`, { headers: requestOptions })
+                .then(response => {
+                    // notes = response.data.notes;
+                    // console.log("notesAction", notes);
+                    dispatch({
+                        type: NOTES_FETCHED,
+                        notes: response.data.notes,
+                    });
+                })
+                .catch(err => {
+                    dispatch({
+                        type: NOTES_ERROR,
+                        errorMessage: `Could not retrieve notes! ${err}.`,
+                    });
+                });
         })
         .catch(err => {
             dispatch({
@@ -91,10 +106,22 @@ export const editNote = (userId, noteId, note) => dispatch => {
     axios
         .put(`${URL}/${userId}/notes/${noteId}`, note, { headers: requestOptions })
         .then(response => {
-            dispatch({
-                type: NOTES_UPDATED,
-                notes: response.data.notes,
-            });
+            axios
+                .get(`${URL}/${userId}/notes`, { headers: requestOptions })
+                .then(response => {
+                    // notes = response.data.notes;
+                    // console.log("notesAction", notes);
+                    dispatch({
+                        type: NOTES_FETCHED,
+                        notes: response.data.notes,
+                    });
+                })
+                .catch(err => {
+                    dispatch({
+                        type: NOTES_ERROR,
+                        errorMessage: `Could not retrieve notes! ${err}.`,
+                    });
+                });
         })
         .catch(err => {
             dispatch({

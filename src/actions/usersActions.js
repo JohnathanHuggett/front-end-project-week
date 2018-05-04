@@ -17,16 +17,39 @@ export const USERS_FETCHING = "USERS_FETCHING",
     URL = "https://lambdabackendproject.herokuapp.com/api/users",
     TEST_URL = "http://localhost:5000/api/users";
 
+let userInfo;
+let userId;
+
+const token = localStorage.getItem("token");
+
+const requestOptions = {
+    Authorization: token,
+};
+
 export const login = user => dispatch => {
     dispatch({ type: LOGGING_IN });
 
     axios
         .post(`${URL}/login`, user)
         .then(response => {
-            dispatch({
-                type: LOGGED_IN,
-                user: response.data,
-            });
+            userInfo = response.data;
+            userId = response.data.id;
+
+            axios
+                .get(`${URL}/${userId}/notes`, { headers: requestOptions })
+                .then(response => {
+                    dispatch({
+                        type: LOGGED_IN,
+                        user: userInfo,
+                        notes: response.data.notes,
+                    });
+                })
+                .catch(err => {
+                    dispatch({
+                        type: LOGIN_ERROR,
+                        errorMessage: `Could not retrieve notes! ${err}.`,
+                    });
+                });
         })
         .catch(err => {
             dispatch({

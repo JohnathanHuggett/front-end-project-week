@@ -38,7 +38,7 @@ class Note extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {this.state.Redirect ? <Redirect to={"/"} /> : null}
+                {this.state.Redirect ? <Redirect to={"/notes"} /> : null}
                 {this.state.Note ? (
                     <Col xs="9">
                         {this.state.DeleteModal ? (
@@ -80,7 +80,7 @@ class Note extends React.Component {
         const id = this.props.match.params.id;
         const notes = this.props.notes;
         const note = notes.find(note => note._id.toString() === id.toString());
-        console.log("========", note);
+
         this.setState({ Note: note });
     }
 

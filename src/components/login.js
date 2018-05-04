@@ -32,7 +32,7 @@ class Login extends React.Component {
     render() {
         return (
             <Col xs="9">
-                {this.state.Redirect ? <Redirect to={"/"} /> : null}
+                {this.state.Redirect ? <Redirect to={"/notes"} /> : null}
                 <Row>
                     <Col>
                         <Form className="mr-4 ml-3" onSubmit={this.handleSubmit}>
@@ -78,6 +78,8 @@ class Login extends React.Component {
         event.preventDefault();
         if (this.state.Fields.username && this.state.Fields.password) {
             this.props.login(this.state.Fields);
+            // console.log("props from login", this.props);
+            // this.props.getNotes(this.props.user.id);
             this.setState({ Redirect: true });
         }
     };
